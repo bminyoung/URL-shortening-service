@@ -181,3 +181,9 @@ class A_3{
 ![Async](https://user-images.githubusercontent.com/23355516/84588152-da8cad00-ae5f-11ea-82d7-fa9cf9cd4329.png)
 ![Sync](https://user-images.githubusercontent.com/23355516/84588086-5cc8a180-ae5f-11ea-9754-dc9d4d01ea7a.png)
 
+# 7. What I want to do
+- add user
+- add cache
+- converting algorithm
+- test code
+- (if possible) FE
