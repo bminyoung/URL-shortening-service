@@ -109,7 +109,8 @@ public ResultCode deleteUrl(String shortUrl);
 |3|originalUrl|VARCHAR|MAX|FALSE||Full address of original address|
 |4|registerDate|DATE||FALSE||date of insertion|
 
-> Which data will put into cache? (not yet)
+- Which data will put into cache?
+> shortUrl & originalUrl
 
 ## 4-2. Data flow diagram
 ![DFD](https://user-images.githubusercontent.com/23355516/87225581-b8fae480-c37d-11ea-862f-9a61c696ed4e.png)
