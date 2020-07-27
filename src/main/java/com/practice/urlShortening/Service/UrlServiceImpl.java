@@ -3,7 +3,10 @@ package com.practice.urlShortening.Service;
 import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -22,16 +25,24 @@ public class UrlServiceImpl implements UrlService{
 	@Autowired
 	private Converter conv;
 	
+	@Resource
+	private UrlRedisServiceImpl redisService;
+	
 	/*
 	 * return original url
 	 * if fail, return null
 	 * */
 	@Override
 	@Async("taskExecutor_get")
-	public CompletableFuture<Url> getUrl(String shortUrl) {
-		long seq = conv.deconvert(shortUrl);
-		Url url = urlDAO.getUrlBySeq(seq);
-		return CompletableFuture.completedFuture(url);
+	public CompletableFuture<Url> getOriginalUrl(String shortUrl) {
+		CompletableFuture<Url> urlInfo = redisService.getOriginalUrl(shortUrl);
+		return urlInfo.thenApply(url -> {
+			if(url == null) {
+				long seq = conv.deconvert(shortUrl);
+				url = urlDAO.getUrlBySeq(seq);				
+			}
+			return url;
+		});
 	}
 	
 	/*
@@ -49,6 +60,10 @@ public class UrlServiceImpl implements UrlService{
 		String shortUrl = conv.shorten(url.getSeq());
 		url.setShortUrl(shortUrl);
 		url.setRegisterDate(new Date());
+		
+		// save cache
+		CompletableFuture<Long> redisResult = redisService.registerUrl(url);
+		
 		urlDAO.update(url);
 		return CompletableFuture.completedFuture(url.getSeq());
 	}
@@ -67,10 +82,12 @@ public class UrlServiceImpl implements UrlService{
 	@Override
 	@Async("taskExecutor")
 	public CompletableFuture<Integer> delete(String shortUrl) {
+		//delete cache
+		redisService.delete(shortUrl);
+		
 		int result = urlDAO.delete(shortUrl);
 		return CompletableFuture.completedFuture(result);
 	}
-
 	
 }
 
