@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.practice.urlShortening.Controller.UrlController;
+import com.practice.urlShortening.Controller.UrlDecodeController;
 import com.practice.urlShortening.Service.UrlService;
 import com.practice.urlShortening.Url.Url;
 
@@ -26,7 +26,7 @@ class UrlShorteningApplicationTests {
 	private UrlService urlService;
 	
 	@Autowired
-	private UrlController urlController;
+	private UrlDecodeController urlController;
 	
 	private MockMvc mockMvc;
 	
