@@ -185,7 +185,7 @@ class A_3{
 
 # 7. What I want to do
 - add user
-- add cache
+- (complete)add cache
 - converting algorithm
 - test code
 - (if possible) FE
