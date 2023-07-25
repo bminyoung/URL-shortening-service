@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<armeria.version>0.99.6</armeria.version>
+		<armeria.version>1.24.3</armeria.version>
 		<mybatis.version>2.0.0</mybatis.version>
 		<urlvalidator.version>1.6</urlvalidator.version>
 	</properties>
